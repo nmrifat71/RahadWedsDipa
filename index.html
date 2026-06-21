@@ -837,13 +837,13 @@ setPlayingState(true);
 // Browser still refused autoplay; guest can use the button instead.
 });
 }
-// Only needed once — remove listeners after the first try.
-["click","touchstart","keydown","scroll"].forEach(evt =>
-document.removeEventListener(evt, startMusicOnce)
-);
 }
 
-["click","touchstart","keydown","scroll"].forEach(evt =>
+// Only click, touchstart, and keydown reliably count as a "user
+// gesture" that browsers will accept to unlock audio playback.
+// (scroll does NOT count on most browsers, which is why music
+// previously failed to start even after the guest scrolled.)
+["click","touchstart","keydown"].forEach(evt =>
 document.addEventListener(evt, startMusicOnce, { once:true, passive:true })
 );
 
@@ -871,5 +871,4 @@ setPlayingState(false);
 </script>
 
 </body>
-</html>
 </html>
