@@ -361,42 +361,42 @@ background:var(--gold);
 color:var(--ink-deep);
 }
 
-/* ---------- gallery ---------- */
+/* ---------- gallery (single portrait) ---------- */
 .gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:16px;
-max-width:1000px;
+max-width:420px;
 margin:40px auto 0;
 }
 
 .gallery figure{
 position:relative;
-border-radius:3px;
+border-radius:4px;
 overflow:hidden;
 border:1px solid var(--rule);
+padding:10px;
+background:linear-gradient(180deg, rgba(201,162,75,.06), transparent);
 }
 
 .gallery img{
 width:100%;
-height:280px;
-object-fit:cover;
+height:auto;
 display:block;
+border-radius:2px;
 background:var(--panel);
-filter:saturate(.92) contrast(1.02);
+filter:saturate(.95) contrast(1.02);
 transition:transform .6s ease;
 }
 
 .gallery figure:hover img{
-transform:scale(1.04);
+transform:scale(1.02);
 }
 
 .gallery figure::after{
 content:"";
 position:absolute;
-inset:0;
+inset:10px;
 box-shadow:inset 0 0 0 1px rgba(232,201,122,.18);
 pointer-events:none;
+border-radius:2px;
 }
 
 /* ---------- footer ---------- */
@@ -704,15 +704,7 @@ View Location
 <div class="gallery">
 
 <figure>
-<img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop" alt="Wedding moment 1" loading="lazy">
-</figure>
-
-<figure>
-<img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop" alt="Wedding moment 2" loading="lazy">
-</figure>
-
-<figure>
-<img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop" alt="Wedding moment 3" loading="lazy">
+<img src="couple.jpg" alt="Naim Mahmud Rahad and Kaniz Fatema Ahmed Dipa" loading="lazy">
 </figure>
 
 </div>
@@ -810,11 +802,50 @@ document
 .querySelectorAll(".fade")
 .forEach(el=>observer.observe(el));
 
-// Music toggle: browsers block autoplay-with-sound, so playback
-// starts only after the guest taps the button (and stays paused
-// by default, which is the considerate choice for a wedding site).
+// Music toggle: true autoplay-with-sound is blocked by every modern
+// browser until the guest interacts with the page at least once.
+// To get as close as possible to "plays right away," we start
+// playback automatically on the guest's very first tap/click/scroll
+// anywhere on the page — they don't need to find the button first.
+// The button still lets them pause/resume at any time afterward.
 const music = document.getElementById("bgMusic");
 const musicBtn = document.getElementById("musicToggle");
+
+function setPlayingState(isPlaying){
+if(isPlaying){
+musicBtn.classList.add("playing");
+musicBtn.setAttribute("aria-label","Pause wedding music");
+musicBtn.setAttribute("aria-pressed","true");
+}else{
+musicBtn.classList.remove("playing");
+musicBtn.setAttribute("aria-label","Play wedding music");
+musicBtn.setAttribute("aria-pressed","false");
+}
+}
+
+function startMusicOnce(e){
+// If the guest's first interaction was the button itself,
+// let the button's own click handler manage play/pause instead
+// of triggering both at once.
+if(e && e.target && e.target.closest && e.target.closest("#musicToggle")){
+return;
+}
+if(music.paused){
+music.play().then(() => {
+setPlayingState(true);
+}).catch(() => {
+// Browser still refused autoplay; guest can use the button instead.
+});
+}
+// Only needed once — remove listeners after the first try.
+["click","touchstart","keydown","scroll"].forEach(evt =>
+document.removeEventListener(evt, startMusicOnce)
+);
+}
+
+["click","touchstart","keydown","scroll"].forEach(evt =>
+document.addEventListener(evt, startMusicOnce, { once:true, passive:true })
+);
 
 musicBtn.addEventListener("click", () => {
 
@@ -825,22 +856,20 @@ music.play().catch(() => {
 // simply stays in the "paused" visual state.
 });
 
-musicBtn.classList.add("playing");
-musicBtn.setAttribute("aria-label","Pause wedding music");
-musicBtn.setAttribute("aria-pressed","true");
+setPlayingState(true);
 
 }else{
 
 music.pause();
-musicBtn.classList.remove("playing");
-musicBtn.setAttribute("aria-label","Play wedding music");
-musicBtn.setAttribute("aria-pressed","false");
+setPlayingState(false);
 
 }
 
 });
 
+
 </script>
 
 </body>
+</html>
 </html>
