@@ -3,20 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Wedding invitation for Naim Mahmud Rahad & Kaniz Fatema Dipa">
+<meta name="description" content="Wedding invitation for Naim Mahmud Rahad & Kaniz Fatema Ahmed Dipa">
 
 <title>Rahad & Dipa | Wedding Invitation</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Cormorant:wght@300;400;500&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
 
 :root{
---gold:#d4af37;
---gold-light:#f7d774;
---dark:#0b0f19;
---card:#121826;
---text:#f8fafc;
+--ink:#0d1812;
+--ink-deep:#081009;
+--panel:#13201a;
+--gold:#c9a24b;
+--gold-light:#e8c97a;
+--brass:#a47e3b;
+--cream:#f1ead9;
+--sage:#94a698;
+--rule:rgba(201,162,75,.28);
 }
 
 *{
@@ -29,202 +35,421 @@ html{
 scroll-behavior:smooth;
 }
 
-body{
-font-family:'Poppins',sans-serif;
-background:var(--dark);
-color:var(--text);
-overflow-x:hidden;
+@media (prefers-reduced-motion: reduce){
+html{ scroll-behavior:auto; }
+*{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
 
+body{
+font-family:'Cormorant',serif;
+font-weight:400;
+background:var(--ink);
+color:var(--cream);
+overflow-x:hidden;
+font-size:1.05rem;
+}
+
+/* ambient texture: soft vignette + faint botanical glow, not a generic radial-blob trio */
 body::before{
 content:"";
 position:fixed;
 inset:0;
 background:
-radial-gradient(circle at 20% 20%,rgba(212,175,55,.12),transparent 30%),
-radial-gradient(circle at 80% 30%,rgba(212,175,55,.08),transparent 25%),
-radial-gradient(circle at 50% 80%,rgba(212,175,55,.08),transparent 25%);
+radial-gradient(ellipse 60% 40% at 50% 0%, rgba(201,162,75,.10), transparent 60%),
+radial-gradient(ellipse 70% 50% at 50% 100%, rgba(164,126,59,.08), transparent 60%),
+linear-gradient(180deg, var(--ink-deep), var(--ink) 12%, var(--ink) 88%, var(--ink-deep));
 pointer-events:none;
-z-index:-1;
+z-index:-2;
 }
 
+/* fine paper-grain so flat dark panels don't look like plain CSS */
+body::after{
+content:"";
+position:fixed;
+inset:0;
+opacity:.05;
+pointer-events:none;
+z-index:-1;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- shared ornament: arch frame ---------- */
+.arch-frame{
+position:relative;
+}
+.arch-frame::before,
+.arch-frame::after{
+content:"";
+position:absolute;
+width:34px;
+height:34px;
+border:1px solid var(--gold);
+opacity:.55;
+}
+.arch-frame::before{
+top:-1px; left:-1px;
+border-right:none; border-bottom:none;
+}
+.arch-frame::after{
+bottom:-1px; right:-1px;
+border-left:none; border-top:none;
+}
+
+.eyebrow{
+letter-spacing:.42em;
+text-transform:uppercase;
+font-family:'Cormorant',serif;
+font-size:.72rem;
+color:var(--sage);
+}
+
+.rule{
+width:64px;
+height:1px;
+margin:22px auto;
+background:linear-gradient(90deg,transparent,var(--gold),transparent);
+position:relative;
+}
+.rule::before{
+content:"❧";
+position:absolute;
+top:50%; left:50%;
+transform:translate(-50%,-50%);
+background:var(--ink);
+padding:0 12px;
+color:var(--gold-light);
+font-size:.95rem;
+line-height:1;
+}
+
+/* ---------- hero ---------- */
 .hero{
 min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:20px;
+padding:32px 18px;
 text-align:center;
+position:relative;
 }
 
 .card{
 width:100%;
-max-width:900px;
-padding:60px 30px;
-background:rgba(255,255,255,.04);
-backdrop-filter:blur(10px);
-border:1px solid rgba(212,175,55,.25);
-border-radius:30px;
+max-width:760px;
+padding:72px 40px 56px;
+background:linear-gradient(180deg, rgba(232,201,122,.05), rgba(232,201,122,.015));
+border:1px solid var(--rule);
+border-radius:6px;
 position:relative;
-overflow:hidden;
+animation:cardIn 1.4s cubic-bezier(.16,.8,.3,1) both;
 }
 
 .card::before{
 content:"";
 position:absolute;
-inset:10px;
-border:1px solid rgba(212,175,55,.3);
-border-radius:22px;
+inset:9px;
+border:1px solid rgba(201,162,75,.18);
+border-radius:3px;
 pointer-events:none;
+}
+
+@keyframes cardIn{
+from{ opacity:0; transform:translateY(18px) scale(.98); }
+to{ opacity:1; transform:translateY(0) scale(1); }
 }
 
 .bismillah{
 font-family:'Amiri',serif;
-font-size:2rem;
+font-size:1.9rem;
 color:var(--gold-light);
-margin-bottom:25px;
+margin-bottom:28px;
+opacity:.95;
 }
 
-.invite{
-letter-spacing:6px;
+.invite-label{
+font-family:'Cormorant',serif;
+letter-spacing:.5em;
 text-transform:uppercase;
-font-size:.9rem;
-color:#cbd5e1;
-margin-bottom:25px;
-}
-
-.names{
-font-family:'Cinzel',serif;
-font-size:4rem;
-line-height:1.3;
-color:var(--gold-light);
-animation:fadeUp 2s ease;
-}
-
-.message{
-max-width:650px;
-margin:30px auto 0;
-line-height:1.9;
-color:#dbe4ee;
-}
-
-.section{
-padding:90px 20px;
-text-align:center;
-}
-
-.section-title{
-font-family:'Cinzel',serif;
-font-size:2.5rem;
-color:var(--gold-light);
+font-size:.78rem;
+color:var(--sage);
 margin-bottom:30px;
 }
 
-.verse{
-max-width:700px;
-margin:auto;
-font-size:1.15rem;
-line-height:2;
-color:#dbe4ee;
+.names{
+font-family:'Great Vibes',cursive;
+font-size:5.2rem;
+font-weight:400;
+line-height:1.25;
+color:var(--gold-light);
+text-shadow:0 0 28px rgba(232,201,122,.18);
 }
 
+.names .amp{
+display:block;
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-size:1.4rem;
+color:var(--gold);
+margin:6px 0;
+letter-spacing:.15em;
+}
+
+.message{
+max-width:520px;
+margin:34px auto 0;
+}
+
+.message p{
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-size:1.18rem;
+line-height:1.95;
+color:#e3ddc9;
+}
+
+.scroll-cue{
+margin-top:46px;
+font-size:.7rem;
+letter-spacing:.35em;
+text-transform:uppercase;
+color:var(--sage);
+opacity:.7;
+animation:bob 2.6s ease-in-out infinite;
+}
+
+@keyframes bob{
+0%,100%{ transform:translateY(0); opacity:.5; }
+50%{ transform:translateY(6px); opacity:.9; }
+}
+
+/* ---------- sections ---------- */
+.section{
+padding:100px 20px;
+text-align:center;
+max-width:900px;
+margin:0 auto;
+}
+
+.section-title{
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-weight:600;
+letter-spacing:.02em;
+font-size:2.5rem;
+color:var(--gold-light);
+}
+
+.verse-block{
+margin-top:34px;
+}
+
+.verse{
+max-width:600px;
+margin:auto;
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-size:1.3rem;
+line-height:1.9;
+color:#e3ddc9;
+}
+
+.verse-ref{
+display:block;
+margin-top:14px;
+font-style:normal;
+font-size:.85rem;
+letter-spacing:.2em;
+text-transform:uppercase;
+color:var(--sage);
+}
+
+/* ---------- countdown ---------- */
 .countdown{
 display:flex;
 justify-content:center;
-gap:15px;
+gap:18px;
 flex-wrap:wrap;
-margin-top:30px;
+margin-top:40px;
 }
 
 .box{
-background:var(--card);
-padding:25px;
-border-radius:20px;
-min-width:120px;
-border:1px solid rgba(212,175,55,.2);
+background:linear-gradient(180deg, rgba(201,162,75,.07), transparent);
+padding:26px 22px;
+border-radius:4px;
+min-width:118px;
+border:1px solid var(--rule);
+position:relative;
 }
 
 .box span{
 display:block;
-font-size:2.3rem;
-font-weight:700;
-color:var(--gold-light);
-}
-
-.details{
-max-width:700px;
-margin:auto;
-background:var(--card);
-padding:35px;
-border-radius:25px;
-border:1px solid rgba(212,175,55,.2);
-}
-
-.details p{
-margin:15px 0;
-font-size:1.1rem;
-}
-
-.gold{
-color:var(--gold-light);
+font-family:'Cormorant Garamond',serif;
+font-size:2.5rem;
 font-weight:600;
+color:var(--gold-light);
+line-height:1;
+margin-bottom:10px;
 }
 
-.gallery{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:15px;
-max-width:1000px;
-margin:auto;
+.box label{
+font-size:.68rem;
+letter-spacing:.28em;
+text-transform:uppercase;
+color:var(--sage);
 }
 
-.gallery img{
-width:100%;
-height:250px;
-object-fit:cover;
-border-radius:20px;
-border:1px solid rgba(212,175,55,.2);
-display:block;
-background:var(--card);
+/* ---------- details ---------- */
+.details{
+max-width:540px;
+margin:40px auto 0;
+padding:44px 36px;
+background:linear-gradient(180deg, rgba(201,162,75,.06), transparent);
+border:1px solid var(--rule);
+border-radius:4px;
+}
+
+.detail-row{
+display:flex;
+justify-content:space-between;
+align-items:baseline;
+padding:16px 0;
+border-bottom:1px solid var(--rule);
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-size:1.2rem;
+text-align:left;
+gap:18px;
+}
+
+.detail-row:last-of-type{
+border-bottom:none;
+}
+
+.detail-label{
+font-family:'Cormorant',serif;
+font-style:normal;
+letter-spacing:.22em;
+text-transform:uppercase;
+font-size:.68rem;
+color:var(--sage);
+white-space:nowrap;
+}
+
+.detail-value{
+color:var(--gold-light);
+text-align:right;
 }
 
 .button{
 display:inline-block;
-margin-top:25px;
-padding:14px 32px;
-border-radius:50px;
+margin-top:30px;
+padding:13px 36px;
+border-radius:2px;
 text-decoration:none;
-background:var(--gold);
-color:#111;
-font-weight:700;
-transition:.3s;
+background:transparent;
+border:1px solid var(--gold);
+color:var(--gold-light);
+font-family:'Cormorant',serif;
+letter-spacing:.22em;
+text-transform:uppercase;
+font-size:.78rem;
+transition:.35s ease;
 }
 
 .button:hover{
-transform:translateY(-3px);
+background:var(--gold);
+color:var(--ink-deep);
 }
 
+/* ---------- gallery ---------- */
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+max-width:1000px;
+margin:40px auto 0;
+}
+
+.gallery figure{
+position:relative;
+border-radius:3px;
+overflow:hidden;
+border:1px solid var(--rule);
+}
+
+.gallery img{
+width:100%;
+height:280px;
+object-fit:cover;
+display:block;
+background:var(--panel);
+filter:saturate(.92) contrast(1.02);
+transition:transform .6s ease;
+}
+
+.gallery figure:hover img{
+transform:scale(1.04);
+}
+
+.gallery figure::after{
+content:"";
+position:absolute;
+inset:0;
+box-shadow:inset 0 0 0 1px rgba(232,201,122,.18);
+pointer-events:none;
+}
+
+/* ---------- footer ---------- */
 footer{
-padding:60px 20px;
+padding:90px 20px 70px;
 text-align:center;
-color:#94a3b8;
+position:relative;
 }
 
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(40px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+.footer-glyph{
+font-size:1.6rem;
+color:var(--gold);
+opacity:.8;
+margin-bottom:26px;
 }
 
+.footer-message{
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-size:1.2rem;
+line-height:1.9;
+max-width:560px;
+margin:0 auto 36px;
+color:#e3ddc9;
+}
+
+.footer-divider{
+width:80px;
+height:1px;
+background:linear-gradient(90deg,transparent,var(--gold),transparent);
+margin:0 auto 28px;
+}
+
+.footer-regards{
+font-family:'Cormorant Garamond',serif;
+font-style:italic;
+font-size:1.02rem;
+color:var(--sage);
+letter-spacing:.06em;
+margin-bottom:8px;
+}
+
+.footer-names{
+font-family:'Great Vibes',cursive;
+font-size:2.3rem;
+color:var(--gold-light);
+}
+
+/* ---------- reveal animation ---------- */
 .fade{
 opacity:0;
-transform:translateY(40px);
-transition:1s;
+transform:translateY(36px);
+transition:opacity 1s ease, transform 1s ease;
 }
 
 .fade.show{
@@ -232,27 +457,129 @@ opacity:1;
 transform:translateY(0);
 }
 
+/* ---------- music toggle ---------- */
+.music-toggle{
+position:fixed;
+bottom:22px;
+right:22px;
+width:54px;
+height:54px;
+border-radius:50%;
+background:var(--ink);
+border:1px solid var(--gold);
+display:flex;
+align-items:center;
+justify-content:center;
+cursor:pointer;
+z-index:999;
+box-shadow:0 4px 18px rgba(0,0,0,.35);
+transition:transform .3s ease, box-shadow .3s ease;
+}
+
+.music-toggle:hover{
+transform:translateY(-2px);
+box-shadow:0 6px 22px rgba(201,162,75,.3);
+}
+
+.music-toggle svg{
+width:22px;
+height:22px;
+fill:var(--gold-light);
+}
+
+.music-toggle .bar{
+width:2.5px;
+background:var(--gold-light);
+border-radius:2px;
+margin:0 1.5px;
+display:inline-block;
+animation:eq 1s ease-in-out infinite;
+}
+
+.music-toggle .bars{
+display:none;
+align-items:flex-end;
+height:18px;
+}
+
+.music-toggle.playing .bars{
+display:flex;
+}
+
+.music-toggle.playing svg{
+display:none;
+}
+
+.music-toggle .bar:nth-child(1){ height:8px; animation-delay:0s; }
+.music-toggle .bar:nth-child(2){ height:16px; animation-delay:.2s; }
+.music-toggle .bar:nth-child(3){ height:11px; animation-delay:.4s; }
+
+@keyframes eq{
+0%,100%{ transform:scaleY(.5); }
+50%{ transform:scaleY(1); }
+}
+
+@media(max-width:768px){
+.music-toggle{
+bottom:16px;
+right:16px;
+width:48px;
+height:48px;
+}
+}
 @media(max-width:768px){
 
+.card{
+padding:54px 22px 44px;
+}
+
 .names{
-font-size:2.6rem;
+font-size:2.7rem;
+}
+
+.names .amp{
+font-size:1rem;
+}
+
+.section{
+padding:72px 18px;
 }
 
 .section-title{
-font-size:2rem;
+font-size:1.9rem;
+}
+
+.verse{
+font-size:1.12rem;
 }
 
 .box{
-min-width:90px;
-padding:18px;
+min-width:78px;
+padding:18px 14px;
 }
 
 .box span{
 font-size:1.8rem;
 }
 
+.details{
+padding:30px 22px;
+}
+
+.detail-row{
+font-size:1.05rem;
+}
+
 .bismillah{
-font-size:1.6rem;
+font-size:1.5rem;
+}
+
+.footer-names{
+font-size:1.8rem;
+}
+
+.footer-message{
+font-size:1.08rem;
 }
 
 }
@@ -263,27 +590,29 @@ font-size:1.6rem;
 
 <section class="hero">
 
-<div class="card">
+<div class="card arch-frame">
 
 <div class="bismillah">
 بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ
 </div>
 
-<div class="invite">
-Wedding Invitation
+<div class="invite-label">
+The Wedding Of
 </div>
 
-<div class="names">
+<h1 class="names">
 Naim Mahmud Rahad
-<br>&<br>
-Kaniz Fatema Dipa
-</div>
+<span class="amp">together with</span>
+Kaniz Fatema Ahmed Dipa
+</h1>
 
 <div class="message">
-With the blessings of Almighty Allah,
-we warmly invite you to join us in celebrating
-our wedding and share the joy of this special day.
+<p>
+With the blessings of Almighty Allah, we cordially invite you to join us in celebrating the wedding of our beloved son and share in the joy of this special occasion.
+</p>
 </div>
+
+<div class="scroll-cue">Scroll to view details</div>
 
 </div>
 
@@ -291,44 +620,43 @@ our wedding and share the joy of this special day.
 
 <section class="section fade">
 
-<h2 class="section-title">
-A Blessed Union
-</h2>
+<p class="eyebrow">Bismillah</p>
+<h2 class="section-title">A Blessed Union</h2>
 
-<div class="verse">
+<div class="verse-block">
+<p class="verse">
 "And We created you in pairs."
-<br>
-(Qur'an 78:8)
+<span class="verse-ref">Qur'an &middot; Surah An-Naba 78:8</span>
+</p>
 </div>
 
 </section>
 
 <section class="section fade">
 
-<h2 class="section-title">
-Countdown
-</h2>
+<p class="eyebrow">Save The Date</p>
+<h2 class="section-title">Counting Down</h2>
 
 <div class="countdown">
 
 <div class="box">
 <span id="days">0</span>
-Days
+<label>Days</label>
 </div>
 
 <div class="box">
 <span id="hours">0</span>
-Hours
+<label>Hours</label>
 </div>
 
 <div class="box">
 <span id="minutes">0</span>
-Minutes
+<label>Minutes</label>
 </div>
 
 <div class="box">
 <span id="seconds">0</span>
-Seconds
+<label>Seconds</label>
 </div>
 
 </div>
@@ -337,17 +665,27 @@ Seconds
 
 <section class="section fade">
 
-<h2 class="section-title">
-Event Details
-</h2>
+<p class="eyebrow">Join Us</p>
+<h2 class="section-title">Event Details</h2>
 
 <div class="details">
 
-<p><span class="gold">Date:</span> 26 June 2026 (Friday)</p>
+<div class="detail-row">
+<span class="detail-label">Date</span>
+<span class="detail-value">26 June 2026, Friday</span>
+</div>
 
-<p><span class="gold">Time:</span> 2:00 PM</p>
+<div class="detail-row">
+<span class="detail-label">Time</span>
+<span class="detail-value">2:00 PM</span>
+</div>
 
-<p><span class="gold">Venue:</span> Supreme Hotel</p>
+<div class="detail-row">
+<span class="detail-label">Venue</span>
+<span class="detail-value">Hotel Supreme Sylhet</span>
+</div>
+
+</div>
 
 <a class="button"
 href="https://www.google.com/maps/place/Hotel+Supreme+Sylhet/@24.8950696,91.8831098,17z/data=!3m1!4b1!4m9!3m8!1s0x375054d279427b2b:0x53c1775b1a01c148!5m2!4m1!1i2!8m2!3d24.8950696!4d91.8831098!16s%2Fg%2F1vd7482x?authuser=0&entry=ttu"
@@ -356,37 +694,58 @@ rel="noopener noreferrer">
 View Location
 </a>
 
-</div>
-
 </section>
 
 <section class="section fade">
 
-<h2 class="section-title">
-Our Moments
-</h2>
+<p class="eyebrow">A Glimpse</p>
+<h2 class="section-title">Our Moments</h2>
 
 <div class="gallery">
 
+<figure>
 <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1200&auto=format&fit=crop" alt="Wedding moment 1" loading="lazy">
+</figure>
 
+<figure>
 <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1200&auto=format&fit=crop" alt="Wedding moment 2" loading="lazy">
+</figure>
 
+<figure>
 <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1200&auto=format&fit=crop" alt="Wedding moment 3" loading="lazy">
+</figure>
 
 </div>
 
 </section>
 
-<footer>
+<footer class="fade">
 
-We look forward to celebrating this beautiful day with you.
+<div class="footer-glyph">❦</div>
 
-<br><br>
+<p class="footer-message">
+We would be truly honored to have you with us as we celebrate this joyous milestone and create cherished memories together.
+</p>
 
-Naim Mahmud Rahad & Kaniz Fatema Dipa
+<div class="footer-divider"></div>
+
+<p class="footer-regards">Warm Regards,</p>
+<p class="footer-names">Mr. &amp; Mrs. Alauddin Mahmud</p>
 
 </footer>
+
+<audio id="bgMusic" loop preload="none">
+<source src="wedding-music.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicToggle" class="music-toggle" aria-label="Play wedding music" aria-pressed="false">
+<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+<span class="bars" aria-hidden="true">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</span>
+</button>
 
 <script>
 
@@ -450,6 +809,36 @@ entry.target.classList.add("show");
 document
 .querySelectorAll(".fade")
 .forEach(el=>observer.observe(el));
+
+// Music toggle: browsers block autoplay-with-sound, so playback
+// starts only after the guest taps the button (and stays paused
+// by default, which is the considerate choice for a wedding site).
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicToggle");
+
+musicBtn.addEventListener("click", () => {
+
+if(music.paused){
+
+music.play().catch(() => {
+// Autoplay/file errors are silently ignored; button
+// simply stays in the "paused" visual state.
+});
+
+musicBtn.classList.add("playing");
+musicBtn.setAttribute("aria-label","Pause wedding music");
+musicBtn.setAttribute("aria-pressed","true");
+
+}else{
+
+music.pause();
+musicBtn.classList.remove("playing");
+musicBtn.setAttribute("aria-label","Play wedding music");
+musicBtn.setAttribute("aria-pressed","false");
+
+}
+
+});
 
 </script>
 
