@@ -481,6 +481,53 @@ transform:translateY(-2px);
 box-shadow:0 6px 22px rgba(201,162,75,.3);
 }
 
+/* Royal pulsing glow: draws the eye to the button for the first
+few seconds on desktop, where no touch gesture has unlocked
+audio yet. Two soft rings breathe outward in gold, then the
+whole effect fades away on its own — or stops the instant the
+guest interacts, whichever happens first. */
+.music-toggle.glow-invite::before,
+.music-toggle.glow-invite::after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:50%;
+border:1px solid var(--gold-light);
+opacity:0;
+pointer-events:none;
+animation:royalPulse 2.4s ease-out infinite;
+}
+
+.music-toggle.glow-invite::after{
+animation-delay:1.2s;
+}
+
+.music-toggle.glow-invite{
+animation:royalGlowFade 6s ease-out forwards;
+}
+
+@keyframes royalPulse{
+0%{
+transform:scale(1);
+opacity:.65;
+box-shadow:0 0 0 0 rgba(232,201,122,.35);
+}
+100%{
+transform:scale(1.9);
+opacity:0;
+box-shadow:0 0 0 14px rgba(232,201,122,0);
+}
+}
+
+@keyframes royalGlowFade{
+0%,70%{
+box-shadow:0 4px 18px rgba(0,0,0,.35), 0 0 16px 2px rgba(232,201,122,.45);
+}
+100%{
+box-shadow:0 4px 18px rgba(0,0,0,.35);
+}
+}
+
 .music-toggle svg{
 width:22px;
 height:22px;
@@ -823,6 +870,18 @@ musicBtn.setAttribute("aria-pressed","false");
 }
 }
 
+// Royal glow: invites the eye to the button for the first few
+// seconds, for guests on desktop (mouse-wheel scrolling doesn't
+// count as a gesture, so they may need a nudge to click once).
+// Stops the moment the guest interacts, or fades out on its own.
+musicBtn.classList.add("glow-invite");
+
+function stopGlow(){
+musicBtn.classList.remove("glow-invite");
+}
+
+const glowTimeout = setTimeout(stopGlow, 6000);
+
 function startMusicOnce(e){
 // If the guest's first interaction was the button itself,
 // let the button's own click handler manage play/pause instead
@@ -830,6 +889,8 @@ function startMusicOnce(e){
 if(e && e.target && e.target.closest && e.target.closest("#musicToggle")){
 return;
 }
+clearTimeout(glowTimeout);
+stopGlow();
 if(music.paused){
 music.play().then(() => {
 setPlayingState(true);
@@ -848,6 +909,9 @@ document.addEventListener(evt, startMusicOnce, { once:true, passive:true })
 );
 
 musicBtn.addEventListener("click", () => {
+
+clearTimeout(glowTimeout);
+stopGlow();
 
 if(music.paused){
 
@@ -871,4 +935,5 @@ setPlayingState(false);
 </script>
 
 </body>
+</html></body>
 </html>
