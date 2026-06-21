@@ -503,7 +503,7 @@ animation-delay:1.2s;
 }
 
 .music-toggle.glow-invite{
-animation:royalGlowFade 6s ease-out forwards;
+animation:royalGlowFade 15s ease-out forwards;
 }
 
 @keyframes royalPulse{
@@ -880,7 +880,7 @@ function stopGlow(){
 musicBtn.classList.remove("glow-invite");
 }
 
-const glowTimeout = setTimeout(stopGlow, 6000);
+const glowTimeout = setTimeout(stopGlow, 15000);
 
 function startMusicOnce(e){
 // If the guest's first interaction was the button itself,
@@ -935,5 +935,4 @@ setPlayingState(false);
 </script>
 
 </body>
-</html></body>
 </html>
